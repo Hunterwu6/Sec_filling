@@ -4,7 +4,6 @@
 Tracking SEC filings manually on the EDGAR website can be tedious and inefficient. **Sec_filling** is a real-time monitoring pipeline that automates ingestion and tracking of company filings using Google Cloud’s serverless services. It checks for new filings on the SEC EDGAR feed at frequent intervals and loads them into BigQuery for easy querying and analysis. An interactive Looker Studio dashboard provides visualizations of key metrics and trends.  
 
 ## System Architecture Diagram :
-![Architecture Diagram]
 ```text
 Cloud Scheduler (every 5 min)
         ↓
@@ -21,7 +20,7 @@ Looker Studio Dashboard
 Cloud Run (Backfill Service)
   • On-demand HTTP trigger (?year & quarter)
   • Fetch historical index & load to BigQuery
-
+```text
 
 ## Features
  •Real-Time Ingestion: Pulls the latest filings from the SEC’s EDGAR Atom feed (up to ~200 entries at a time) and ingests them automatically.
