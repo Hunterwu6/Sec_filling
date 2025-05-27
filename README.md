@@ -19,62 +19,50 @@ Below is a high-level architecture diagram illustrating the data flow from the S
 GCP services to the final dashboard:
 
 ```
-Cloud Scheduler (cron job, every 5 min)
-|
-(triggers) v
-Pub/Sub Topic "sec-filings-topic"
-|
-(pushes event) v
+Cloud Scheduler (every 5 min)
+↓
+Pub/Sub Topic: sec-filings-topic
+↓
 Cloud Run (Ingestion Service)
-```
-- Fetches latest EDGAR RSS feed entries
-- Parses filings and writes to BigQuery
-|
-v
+  • Fetch & parse EDGAR RSS feed
+  • Write new filings to BigQuery
+↓
 BigQuery (sec_filings table)
-|
-v
-Looker Studio Dashboard (interactive charts)
-^
-|
+↓
+Looker Studio Dashboard
+↑
 Cloud Run (Backfill Service)
-- On-demand HTTP trigger (with ?year & quarter)
-- Fetches historical EDGAR index data
-- Loads past filings into BigQuery
-
-
-_Diagram: Real-time flow (top) ingests new filings on a schedule. Historical backfill (bottom) can be triggered
-manually for any past quarter, merging data into the same BigQuery table._
-
+  • On-demand HTTP trigger (year & quarter)
+  • Fetch historical index & load to BigQuery
+```
 ## Features
 
-```
-Real-Time Ingestion of Filings: The system pulls the latest filings from the SEC’s EDGAR Atom feed
+•Real-Time Ingestion of Filings: The system pulls the latest filings from the SEC’s EDGAR Atom feed
 (up to ~200 at a time) in near real-time. New EDGAR entries are detected and ingested
 automatically, so you no longer have to manually monitor the SEC website.
-```
-```
+
+•Real-Time Ingestion of Filings: The system pulls the latest filings from the SEC’s EDGAR Atom feed
 Frequent Scheduled Updates (5-minute Interval): A Cloud Scheduler cron job runs every 5
 minutes (configurable) and publishes a message to a Pub/Sub topic. This triggers the Cloud Run
 ingestion service via Pub/Sub, ensuring new filings are fetched and processed almost immediately
 after they appear on EDGAR. The decoupling via Pub/Sub means the ingestion service only runs
 when triggered , minimizing compute usage.
-```
-```
+
+•Real-Time Ingestion of Filings: The system pulls the latest filings from the SEC’s EDGAR Atom feed
 Historical Backfill Function: In addition to live monitoring, a separate Cloud Run service can
 backfill historical filings. By specifying a year and quarter, this service fetches the SEC master
 index for that period and loads all filings from that timeframe into BigQuery. This is useful for
 seeding the database with past data (e.g., last quarter’s or last year’s filings) so the dashboard has
 historical context. The backfill function handles large index files by parsing and batching inserts,
 while avoiding duplicate entries.
-```
-```
+
+•Real-Time Ingestion of Filings: The system pulls the latest filings from the SEC’s EDGAR Atom feed
 BigQuery Data Warehouse: All parsed filing records are stored in a BigQuery table
 (sec_filings). Using BigQuery provides scalable storage and the ability to query filings data with
 SQL. The ingestion pipeline ensures no duplicate filings are inserted (checking by unique accession
 number) , and BigQuery’s fast querying enables interactive analysis on the dashboard.
-```
-```
+
+•Real-Time Ingestion of Filings: The system pulls the latest filings from the SEC’s EDGAR Atom feed
 Interactive Dashboard (Looker Studio): A pre-built Looker Studio dashboard connects directly to
 the BigQuery dataset. It includes KPI summary cards (e.g. total number of filings, filings this week),
 bar charts (e.g. number of filings by form type or by company), and line graphs (filings over time) to
@@ -83,7 +71,7 @@ allowing users to monitor filings in real-time. You can filter or drill down by 
 date to find filings of interest. (If a Looker Studio report template is available, you can use it by
 connecting it to your BigQuery data source. Otherwise, you can create a new report in Looker Studio, add
 BigQuery as a data source, and use the sec_filings table to build charts.)
-```
+
 ## Google Cloud Setup Instructions
 
 To deploy this project, you will need a Google Cloud project with the appropriate services enabled and
