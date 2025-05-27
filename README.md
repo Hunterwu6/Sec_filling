@@ -77,8 +77,7 @@ BigQuery as a data source, and use the sec_filings table to build charts.)
 To deploy this project, you will need a Google Cloud project with the appropriate services enabled and
 resources created. Follow these setup steps:
 
-### •
-Enable APIs: Ensure the required GCP APIs are active in your project. At minimum, enable the Cloud
+•Enable APIs: Ensure the required GCP APIs are active in your project. At minimum, enable the Cloud
 Run API , Cloud Pub/Sub API , Cloud Scheduler API , and BigQuery API (as well as the Cloud Build
 API if deploying via source). This can be done via the Cloud Console or with gcloud commands, for
 example:
@@ -86,28 +85,37 @@ example:
 gcloud services enable run.googleapis.com pubsub.googleapis.com \
     cloudscheduler.googleapis.com bigquery.googleapis.com
 ```
-### •
-Create Pub/Sub Topic: Create a Pub/Sub topic that will carry trigger messages for new filings ingestion. The system assumes a topic named sec-filings-topic. You can create it in the Cloud Console or via gcloud:
+•Create Pub/Sub Topic: Create a Pub/Sub topic that will carry trigger messages for new filings ingestion. The system assumes a topic named sec-filings-topic. You can create it in the Cloud Console or via gcloud:
 ```
 gcloud pubsub topics create sec-filings-topic
 ```
-### •
-Set Up BigQuery Dataset and Table: In BigQuery, create a dataset (e.g. named sec_filings) and within it create a table sec_filings with the schema below (see BigQuery Schema section). The table should have fields for filing date, company name, form type, CIK, accession number, and filing URL.
+•Set Up BigQuery Dataset and Table: In BigQuery, create a dataset (e.g. named sec_filings) and within it create a table sec_filings with the schema below (see BigQuery Schema section). The table should have fields for filing date, company name, form type, CIK, accession number, and filing URL.
 You can create the table via the BigQuery web UI or with the bq command-line tool. For example, to create a dataset:
 ```
 bq --location=US mk -d your-project-id:sec_filings 
 ```
-### •
-
+And to create the table with the proper schema (assuming you saved the schema JSON):
 ```
-12
+bq mk -t --schema=bq-sec_filings-schema.json your-project-id:sec_filings.sec_filings 
 ```
-### •
+Ensure the table schema matches the expected fields (order doesn’t matter as long as names/types match).
 
-### 1.
+### Service Accounts and IAM Permissions: 
+Set up necessary IAM roles for seamless communication:
+.BigQuery Access: The Cloud Run services (ingestion and backfill) will use the default compute service account (or a specified service account) to insert into BigQuery. Grant that service account BigQuery Data Editor (or at least BigQuery Dataset Writer) permissions on your project or specifically on the dataset. For example, if using the default service account, grant roles/bigquery.dataEditor to YOUR_PROJECT_NUMBER-compute@developer.gserviceaccount.com
+.Cloud Run Invoker (for Pub/Sub): If you plan to secure Cloud Run (disallow public access), you need to permit Pub/Sub to trigger the ingestion service. Create a Pub/Sub push subscription (in Deployment steps below) that uses a service account. Then grant that service account the Cloud Run Invoker role on the ingestion Cloud Run service. This ensures Pub/Sub messages can invoke the Cloud Run endpoint. (If you choose to allow unauthenticated invocations for simplicity, you can skip this, but restricting access is recommended.)
+.Cloud Scheduler Permissions: By default, Cloud Scheduler uses the App Engine default service account to publish to Pub/Sub. Make sure that account has Pub/Sub Publisher rights on the sec-filings-topic. This is usually YOUR_PROJECT_ID@appspot.gserviceaccount.com. You can add the role roles/pubsub.publisher for that service account on the topic if it’s not already present.
+
+### Configure Environment Variables: 
+Decide on values for environment variables needed by the services:
+```BQ_TABLE_ID``` – This tells the Cloud Run code which BigQuery table to write to. It should be set to your-project-id.sec_filings.sec_filings (i.e., project.dataset.table). By default the code expects sec-filling.sec_filings.sec_filings, but you should override it with your project/dataset.
+```SEC_USER_AGENT``` – The SEC requires a custom User-Agent string for automation. Set this to identify your application (e.g., "MySecMonitor/1.0 (your-email@example.com)" as shown in the code). This is used in HTTP requests to EDGAR so that your script abides by SEC’s fair use policy.
+You will provide these env vars during Cloud Run deployment (using --set-env-vars in gcloud or via the Cloud Run console UI).
+With the infrastructure in place and the above configured, you’re ready to deploy the Cloud Run services and set up the data pipeline.
 
 
-```
+
+
 gcloud servicesenable run.googleapis.com pubsub.googleapis.com\
 cloudscheduler.googleapis.combigquery.googleapis.com
 ```
