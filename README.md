@@ -21,3 +21,25 @@ Looker Studio Dashboard
 Cloud Run (Backfill Service)
   • On-demand HTTP trigger (?year & quarter)
   • Fetch historical index & load to BigQuery
+
+
+## Features
+ •Real-Time Ingestion: Pulls the latest filings from the SEC’s EDGAR Atom feed (up to ~200 entries at a time) and ingests them automatically.
+
+ •Scheduled Updates: A Cloud Scheduler cron job runs every 5 minutes, publishing to Pub/Sub to trigger the ingestion service with minimal compute usage.
+
+ •Historical Backfill: A separate Cloud Run service that fetches and loads historical filings by year and quarter, handling large index files and avoiding duplicates.
+
+ •BigQuery Data Warehouse: Stores all parsed filings in a sec_filings table with de-duplication by accession number, enabling scalable SQL querying.
+
+ •Interactive Dashboard: A Looker Studio dashboard with KPI cards, bar charts, and time series graphs, updated automatically as new data arrives.
+
+## Google Cloud Setup
+ •Enable APIs
+```text
+gcloud services enable \
+  run.googleapis.com \
+  pubsub.googleapis.com \
+  cloudscheduler.googleapis.com \
+  bigquery.googleapis.com \
+  cloudbuild.googleapis.com
