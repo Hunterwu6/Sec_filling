@@ -17,7 +17,7 @@ The SEC Filings Monitoring Dashboard is built using several GCP services in a se
 
 *The diagram below illustrates the data flow from the SEC feed through GCP to the dashboard.*
 
-```mermaid
+```
               Cloud Scheduler (cron job, every 5 min)
                          |
         (triggers)       v
