@@ -112,8 +112,8 @@ The interactive dashboard is built with **Google Looker Studio**, which directly
 * **Top Filers**: Tables list companies with the most filings in the selected time frame, which can indicate companies undergoing significant events or frequent disclosures.
 * **Flexible Filtering**: Controls at the top of the dashboard let users adjust the date range, select specific form types, or focus on particular companies. This interactivity enables drilling down into the data for custom analysis.
 
-To view the live dashboard, visit the \[Dashboard Link]. (You may need a Google account for access if the dashboard is restricted.) The dashboard can be copied or modified as needed to suit different analysis goals. Below is an example screenshot of the dashboard interface:
-![Dashboard Screenshot](dashboard_sample.png)
+To view the live dashboard, visit the \[[Dashboard Link](https://lookerstudio.google.com/s/jurqW7si62U)]. (You may need a Google account for access if the dashboard is restricted.) The dashboard can be copied or modified as needed to suit different analysis goals. Below is an example screenshot of the dashboard interface:
+<iframe width="600" height="450" src="https://lookerstudio.google.com/embed/reporting/1e2cc223-cf6f-45c0-9ed9-f44fda348352/page/p_zwvwoklfsd" frameborder="0" style="border:0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
 
 The example above shows a week of filings with various form types, a pie chart breakdown by form, a trendline of daily filings, and the top companies by number of filings. The actual dashboard is interactive, allowing you to click on segments or filter controls to dynamically update the view.
 
