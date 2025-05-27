@@ -1,0 +1,22 @@
+2025-05-05 01:10:56.065 [info] 
+
+
+
+
+2025-05-05 01:10:56.082 [info] Extension host agent started.
+2025-05-05 01:10:56.104 [info] Started initializing default profile extensions in extensions installation folder. file:///home/hunterwuwork/.codeoss/extensions
+2025-05-05 01:10:56.127 [info] Completed initializing default profile extensions in extensions installation folder. file:///home/hunterwuwork/.codeoss/extensions
+2025-05-05 01:10:57.732 [info] [127.0.0.1][fccc5168][ExtensionHostConnection] New connection established.
+2025-05-05 01:10:57.733 [info] [127.0.0.1][ab81b14d][ManagementConnection] New connection established.
+2025-05-05 01:11:00.115 [info] [127.0.0.1][fccc5168][ExtensionHostConnection] <2028> Launched Extension Host Process.
+2025-05-05 01:20:40.103 [info] [127.0.0.1][ab81b14d][ManagementConnection] The client has disconnected gracefully, so the connection will be disposed.
+2025-05-05 01:20:46.146 [info] [127.0.0.1][97dffb2d][ManagementConnection] New connection established.
+2025-05-05 01:20:46.147 [info] [127.0.0.1][16c75877][ExtensionHostConnection] New connection established.
+2025-05-05 01:20:46.152 [info] [127.0.0.1][16c75877][ExtensionHostConnection] <2153> Launched Extension Host Process.
+2025-05-05 01:21:19.962 [info] [127.0.0.1][97dffb2d][ManagementConnection] The client has disconnected gracefully, so the connection will be disposed.
+2025-05-05 01:25:46.353 [info] [127.0.0.1][fccc5168][ExtensionHostConnection] <2028> Extension Host Process exited with code: 0, signal: null.
+2025-05-05 03:04:17.025 [info] [127.0.0.1][b0c95248][ManagementConnection] New connection established.
+2025-05-05 03:04:17.028 [info] [127.0.0.1][a04d253e][ExtensionHostConnection] New connection established.
+2025-05-05 03:04:17.036 [info] [127.0.0.1][a04d253e][ExtensionHostConnection] <2520> Launched Extension Host Process.
+2025-05-05 03:09:17.416 [info] [127.0.0.1][16c75877][ExtensionHostConnection] <2153> Extension Host Process exited with code: 0, signal: null.
+2025-05-05 03:24:57.667 [info] [127.0.0.1][b0c95248][ManagementConnection] The client has disconnected, will wait for reconnection 3h before disposing...

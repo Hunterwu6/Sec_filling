@@ -1,0 +1,65 @@
+{
+  "creationTime": "1746984241671",
+  "etag": "kXPLPZ9HlBref0IitrVLBg==",
+  "id": "sec-filling:sec_filings.sec_filings",
+  "kind": "bigquery#table",
+  "lastModifiedTime": "1747100771919",
+  "location": "US",
+  "numActiveLogicalBytes": "2504054143",
+  "numActivePhysicalBytes": "280588160",
+  "numBytes": "2504054143",
+  "numCurrentPhysicalBytes": "280582651",
+  "numLongTermBytes": "0",
+  "numLongTermLogicalBytes": "0",
+  "numLongTermPhysicalBytes": "0",
+  "numRows": "17506162",
+  "numTimeTravelPhysicalBytes": "5509",
+  "numTotalLogicalBytes": "2504054143",
+  "numTotalPhysicalBytes": "280588160",
+  "schema": {
+    "fields": [
+      {
+        "mode": "NULLABLE",
+        "name": "cik",
+        "type": "STRING"
+      },
+      {
+        "mode": "NULLABLE",
+        "name": "company_name",
+        "type": "STRING"
+      },
+      {
+        "mode": "NULLABLE",
+        "name": "form_type",
+        "type": "STRING"
+      },
+      {
+        "mode": "NULLABLE",
+        "name": "filing_date",
+        "type": "DATE"
+      },
+      {
+        "mode": "NULLABLE",
+        "name": "accession_number",
+        "type": "STRING"
+      },
+      {
+        "mode": "NULLABLE",
+        "name": "filing_url",
+        "type": "STRING"
+      }
+    ]
+  },
+  "selfLink": "https://bigquery.googleapis.com/bigquery/v2/projects/sec-filling/datasets/sec_filings/tables/sec_filings",
+  "streamingBuffer": {
+    "estimatedBytes": "4748",
+    "estimatedRows": "17",
+    "oldestEntryTime": "1747101002856"
+  },
+  "tableReference": {
+    "datasetId": "sec_filings",
+    "projectId": "sec-filling",
+    "tableId": "sec_filings"
+  },
+  "type": "TABLE"
+}
