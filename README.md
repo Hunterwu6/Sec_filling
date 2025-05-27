@@ -77,29 +77,25 @@ BigQuery as a data source, and use the sec_filings table to build charts.)
 To deploy this project, you will need a Google Cloud project with the appropriate services enabled and
 resources created. Follow these setup steps:
 
-```
+### •
 Enable APIs: Ensure the required GCP APIs are active in your project. At minimum, enable the Cloud
 Run API , Cloud Pub/Sub API , Cloud Scheduler API , and BigQuery API (as well as the Cloud Build
 API if deploying via source). This can be done via the Cloud Console or with gcloud commands, for
 example:
 ```
-### •
-
-```
-8 9
+gcloud services enable run.googleapis.com pubsub.googleapis.com \
+    cloudscheduler.googleapis.com bigquery.googleapis.com
 ```
 ### •
-
+Create Pub/Sub Topic: Create a Pub/Sub topic that will carry trigger messages for new filings ingestion. The system assumes a topic named sec-filings-topic. You can create it in the Cloud Console or via gcloud:
 ```
-1
+gcloud pubsub topics create sec-filings-topic
 ```
 ### •
-
+Set Up BigQuery Dataset and Table: In BigQuery, create a dataset (e.g. named sec_filings) and within it create a table sec_filings with the schema below (see BigQuery Schema section). The table should have fields for filing date, company name, form type, CIK, accession number, and filing URL.
+You can create the table via the BigQuery web UI or with the bq command-line tool. For example, to create a dataset:
 ```
-6
-```
-```
-10 11
+bq --location=US mk -d your-project-id:sec_filings 
 ```
 ### •
 
