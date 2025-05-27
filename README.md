@@ -1,10 +1,10 @@
 # Sec_filling – Real-Time SEC Filings Monitoring System
 
-## Project Overview :contentReference[oaicite:0]{index=0}
+## Project Overview 
 Tracking SEC filings manually on the EDGAR website can be tedious and inefficient. **Sec_filling** is a real-time monitoring pipeline that automates ingestion and tracking of company filings using Google Cloud’s serverless services. It checks for new filings on the SEC EDGAR feed at frequent intervals and loads them into BigQuery for easy querying and analysis. An interactive Looker Studio dashboard provides visualizations of key metrics and trends.  
 
-## System Architecture Diagram :contentReference[oaicite:1]{index=1}
-![Architecture Diagram](docs/architecture.png)  
+## System Architecture Diagram :
+![Architecture Diagram]
 ```text
 Cloud Scheduler (every 5 min)
         ↓
