@@ -21,23 +21,23 @@ The SEC Filings Monitoring Dashboard is built using several GCP services in a se
               Cloud Scheduler (cron job, every 5 min)
                          |
         (triggers)       v
-        Pub/Sub Topic "sec-filings-topic" :contentReference[oaicite:0]{index=0}
+        Pub/Sub Topic "sec-filings-topic" 
                          |
         (pushes event)   v
-        Cloud Run (Ingestion Service) :contentReference[oaicite:1]{index=1}
+        Cloud Run (Ingestion Service) 
             - Fetches latest EDGAR RSS feed entries
-            - Parses filings and writes to BigQuery :contentReference[oaicite:2]{index=2}
+            - Parses filings and writes to BigQuery
                          |
                          v
-              BigQuery (sec_filings table) :contentReference[oaicite:3]{index=3}:contentReference[oaicite:4]{index=4}
+              BigQuery (sec_filings table) 
                          |
                          v
               Looker Studio Dashboard (interactive charts)
                          ^
                          |
-        Cloud Run (Backfill Service) :contentReference[oaicite:5]{index=5}
+        Cloud Run (Backfill Service) 
             - On-demand HTTP trigger (with ?year & quarter)
-            - Fetches historical EDGAR index data:contentReference[oaicite:6]{index=6}
+            - Fetches historical EDGAR index data
             - Loads past filings into BigQuery
 
 ```
